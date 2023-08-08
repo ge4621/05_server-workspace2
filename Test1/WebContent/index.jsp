@@ -13,7 +13,7 @@
 	<h1>회원 정보 검색(회원 번호 검색)</h1>
 	<form action="/Test1/test.do" method="get">
 	
-		<input type="test" name="userNo" placeholder="회원 번호 입력"> <!-- name 값을 줘야 날라감 -->
+		<input type="test" name="userNo" placeholder="회원 번호 입력"> <!-- name 값을 줘야 날라감 =>db로 넘어가야 하는 정보이다 (=>꼭 name 값 주기  -->
 		<!-- db로 넘겨야할 값은 무조건 name을 줘야 한다. -->
 		<input type="submit" value="조회">
 		
