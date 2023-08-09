@@ -23,7 +23,8 @@ public class Member {
 	public Member() {}
 	
 	//alt +shift +s + o ,r, s
-
+	
+	//매개변수 생성자(전체)
 	public Member(int userNo, String userId, String userPwd, String userName, String phone, String email,
 			String address, String interest, Date enrollDate, Date modifyDate, String status) {
 		super();
@@ -39,7 +40,23 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
+	
+	
+	//매개변수 7개 번전
+	public Member(String userId, String userPwd, String userName, String phone, String email, String address,
+			String interest) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.interest = interest;
+	}
 
+	//반환형이 있으면 생성자, 반환형이 없으면 메소드 
+	
 	public int getUserNo() {
 		return userNo;
 	}

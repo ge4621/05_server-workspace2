@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
@@ -42,7 +43,7 @@ public class LoginController extends HttpServlet {
 		//3)요청 처리(db에 sql문 실행)
 		//	해당 요청을 처리하는 서비스 클래스의 메소드 호출 및 결과 받기
 		Member loginMember = new MemberService().loginMember(userId, userPwd);
-		System.out.println(loginMember);
+		System.out.println(loginMember); 
 		
 		
 		//4)처리된 결과를 가지고 사용자가 보게될 응답 뷰(jsp)지정 후 포워딩 또는 url 재요청
@@ -58,7 +59,7 @@ public class LoginController extends HttpServlet {
 		 * 공통적으로 데이터를 담고자 한다면 .setAttribute("키",벨류)
 		 * 			데이터를 꺼내고자 한다면 .getAttribute("키") : object 타입으로 벨류
 		 * 			데이터를 지우고자 한다면 .removeAttribute("키")
-		 * 
+		 * 아래로 올수 록 담는 곳이 작다
 		 */
 
 		if(loginMember == null) {
@@ -69,10 +70,32 @@ public class LoginController extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}else {
-			//조회결과 있음 == 로그인 성공
+			//조회결과 있음 == 로그인 성공 => 메인페이지 응답ㅂ(index.jsp)
+			
+			//로그인한 회원정보(loginMember)를 session에 담기(여기저기서 가져다 쓸 수 있도록)
+			
+			//Servlet에서는 session에 접근하고자 한다면 우선 세션 객체 얻어와야 한다.
+			//세션 객체는 request에서 불려 와야 한다.
+			HttpSession session = request.getSession();
+			session.setAttribute("loginMember", loginMember);
+			
+			//1.포워딩 방식 응답 뷰 출력
+			//해당 선택된 jsp가 보여질 뿐 url에는 여전히 현재 이 서블릿 매핑값이 나아 있다.
+			//localhost:8001/jsp/login.me
+			//RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+			//view.forward(request, response);
+			
+			//2. url재요청 방식 (sendRedirect 방식)
+			//기존에 저 페이지를 응답하는 url이 존재한다면 사용가능
+			//localhost:8001/jsp (조건 => 한번이라도 본 화면이여야 한다)
+			
+			//response.sendRedirect("/jsp");
+			
+			response.sendRedirect(request.getContextPath()); //=> /jsp
+			
+			
+			
 		}
-		
-		
 	}
 
 	/**

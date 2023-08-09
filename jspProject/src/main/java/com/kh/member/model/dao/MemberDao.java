@@ -8,14 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.kh.common.JDBCTemplate;
+import static com.kh.common.JDBCTemplate.*;
 import com.kh.member.model.vo.Member;
 
 public class MemberDao {
 
 	private Properties prop = new Properties();
 	
-	public MemberDao() {
+	public MemberDao() {//생성자
 		String filePath = MemberDao.class.getResource("/db/sql/member-mapper.xml").getPath();
 		
 		try {
@@ -33,7 +33,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("loginMember");
+		String sql = prop.getProperty("loginMember"); //loginMember => "키값" //쿼리를 직접 작성 하면 쿼리가 바뀔때 마다 바꿔줘야 한다.
 		
 		try {
 			pstmt = conn.prepareStatement(sql);//미완성된 쿼리
@@ -62,11 +62,44 @@ public class MemberDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCTemplate.close(rset);
-			JDBCTemplate.close(pstmt);
+			/*JDBCTemplate.*/close(rset);
+			/*JDBCTemplate.*/close(pstmt);
 		}
 		return m;
 		
+		
+	}
+	
+	public int insertMember(Connection conn, Member m) {
+		//insert문 => 처리된 행 수 => 트랜젝션 처리
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql); //미완성 쿼리
+			
+			pstmt.setString(1, m.getUserId());
+			pstmt.setString(2, m.getUserPwd());
+			pstmt.setString(3, m.getUserName());
+			pstmt.setString(4, m.getPhone());
+			pstmt.setString(5, m.getEmail());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getInterest()); //여기까지 오면 완변해진다.
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			/*JDBCTemplate.*/close(pstmt);
+		}
+		return result;
 		
 	}
 	
