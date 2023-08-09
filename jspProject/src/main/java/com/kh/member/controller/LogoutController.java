@@ -28,8 +28,9 @@ public class LogoutController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//session을 사용하기 위해서 request의 도움을 받아야 한다.(상위버전의 값을 가져오기 위해서는 하위 버전의 도움을 받아야 한다.)
 		//로그아웃 요청 처리 => session 만료 시키기 == 세션을 null로 만들어서 무효화 시키기
-		//HttpSession session = request.getSession();
+		//HttpSession session = request.getSession(); // getSession의 자료형 => HttpSession
 		//session.invalidate(); // 세션 초기화
 		
 		//위 두줄 한줄로 하기

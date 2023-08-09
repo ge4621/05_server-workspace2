@@ -33,7 +33,8 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("loginMember"); //loginMember => "키값" //쿼리를 직접 작성 하면 쿼리가 바뀔때 마다 바꿔줘야 한다.
+		String sql = prop.getProperty("loginMember"); //loginMember => "키값" //쿼리를 직접 작성 하면 쿼리가 바뀔때 마다 바꿔줘야 한다. (=>loginMember은 해당 쿼리문 제목으로 입력한 값)
+														// db->sql->member-mapper.xml안에 있다.
 		
 		try {
 			pstmt = conn.prepareStatement(sql);//미완성된 쿼리
@@ -57,8 +58,7 @@ public class MemberDao {
 								rset.getString("status"));
 						
 			}
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -66,9 +66,9 @@ public class MemberDao {
 			/*JDBCTemplate.*/close(pstmt);
 		}
 		return m;
-		
-		
 	}
+	
+	
 	
 	public int insertMember(Connection conn, Member m) {
 		//insert문 => 처리된 행 수 => 트랜젝션 처리
@@ -76,10 +76,10 @@ public class MemberDao {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertMember");
+		String sql = prop.getProperty("insertMember"); //insertMember => 해당 쿼리문 제목 => db->sql->member-mapper.xml안에 있다.
 		
 		try {
-			pstmt = conn.prepareStatement(sql); //미완성 쿼리
+			pstmt = conn.prepareStatement(sql); //미완성 쿼리 => 쿼리문에 ?가 있다.
 			
 			pstmt.setString(1, m.getUserId());
 			pstmt.setString(2, m.getUserPwd());
@@ -91,19 +91,13 @@ public class MemberDao {
 			
 			result = pstmt.executeUpdate();
 			
-			
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			/*JDBCTemplate.*/close(pstmt);
 		}
 		return result;
-		
 	}
-	
-	
 	
 	
 }

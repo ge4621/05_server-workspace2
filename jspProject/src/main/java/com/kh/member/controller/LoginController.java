@@ -59,7 +59,7 @@ public class LoginController extends HttpServlet {
 		 * 공통적으로 데이터를 담고자 한다면 .setAttribute("키",벨류)
 		 * 			데이터를 꺼내고자 한다면 .getAttribute("키") : object 타입으로 벨류
 		 * 			데이터를 지우고자 한다면 .removeAttribute("키")
-		 * 아래로 올수 록 담는 곳이 작다
+		 * 아래로 내려올수록 담는 곳의 공간이 좁다. page가 가장 작은 범위 -> application이 가장 큰 범위
 		 */
 
 		if(loginMember == null) {

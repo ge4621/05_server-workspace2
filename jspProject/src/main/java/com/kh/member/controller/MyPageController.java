@@ -30,11 +30,12 @@ public class MyPageController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//로그인 전에 url쳐서 직접 요청도 가능하긴 함
+		//로그인 전에 url쳐서 직접 요청도 가능하긴 함 (마이페이지는 로그인 후에 사용할 수 있는 기능 => url을 직접쳐서 들어올수 없어야 한다.) 
 		//로그인 전 요청 시 => 메인페이지 응답, alert 띄우기 => url재요청(request x)
 		//로그인 후 요청 시 => 마이페이지 응답 => 포워딩
 		
 		HttpSession session = request.getSession();
+		
 		if(session.getAttribute("loginMember")==null) {//로그인 전
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스 입니다.");
 			response.sendRedirect(request.getContextPath());

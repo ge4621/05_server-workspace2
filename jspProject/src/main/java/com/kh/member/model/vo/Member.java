@@ -42,7 +42,7 @@ public class Member {
 	}
 	
 	
-	//매개변수 7개 번전
+	//매개변수 7개 번전(MemberController에서 매개 변수 7개만 담는게 있어서 만들었다.)
 	public Member(String userId, String userPwd, String userName, String phone, String email, String address,
 			String interest) {
 		super();

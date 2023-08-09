@@ -4,7 +4,7 @@
     
  <%
  
- 	String contextPath = request.getContextPath(); // /jsp 
+ 	String contextPath = request.getContextPath(); // => /jsp 
  
  	Member loginMember =(Member)session.getAttribute("loginMember");
  	//로그인 시도 전 menubar.jsp 로딩 시 : null => case1
@@ -94,8 +94,8 @@
             
             <script>
             	function enrollPage(){
-            		// location.href="<%= contextPath%>/views/member/memberEnrollForm.jsp"
-            		// 웹 애플리케이션의 디렉토리 구조가 url에 노출되면 보안에 취약
+            		// location.href="<%= contextPath%>/views/member/memberEnrollForm.jsp" 
+            		// 웹 애플리케이션의 디렉토리 구조가 url에 노출되면 보안에 취약(위의 코드 주석 들어가 있다.)
             		
             		//단순한 페이지 요청도 servlet 호출해서 servlet 거쳐갈 것!(즉, url에는 서블릿 매핑 값만 노출)
             		location.href = "<%= contextPath%>/enrollForm.me";

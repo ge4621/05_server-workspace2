@@ -37,10 +37,10 @@ public class MemberEnrollController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		//2)요청 시 전달 값 뽑아서 변수 및 객체에 기록하기
-		String userId = request.getParameter("userId"); //"user03"
-		String userPwd = request.getParameter("userPwd");//"pass03"
-		String userName = request.getParameter("userName");//"차은우"
-		String phone = request.getParameter("phone");//"01011112222" | " "
+		String userId = request.getParameter("userId"); //"user03" => 필수 입력 값
+		String userPwd = request.getParameter("userPwd");//"pass03" => 필수 입력 값
+		String userName = request.getParameter("userName");//"차은우" => 필수 입력 값
+		String phone = request.getParameter("phone");//"01011112222" | " " => 입력 값이 있으면 입력 값 출력, 없으면 공백 
 		String email = request.getParameter("email");//"adk@fkj" | " "
 		String address = request.getParameter("address"); //"경기도 의정부시" | " "
 		String[] interestArr = request.getParameterValues("interest"); //["운동","등산"] | null
@@ -55,7 +55,7 @@ public class MemberEnrollController extends HttpServlet {
 			interest = String.join(",", interestArr);
 		}
 		
-		Member m = new Member(userId, userPwd, userName, phone, email, address,interest);
+		Member m = new Member(userId, userPwd, userName, phone, email, address,interest); //매개변수 7개인거 만들기(한개씩 값을 받는것 보다 양이 많으면 생성자 생성해서 담는게 좋다.)
 		
 		//3) 요청 처리(db에 sql문 실행) => 서비스 메소드 호출 및 결과 받기
 		
