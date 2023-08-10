@@ -100,4 +100,129 @@ public class MemberDao {
 	}
 	
 	
+	public int updateMember(Connection conn,Member m) {
+		
+		//update문 => 처리된 행수(오라클에서 "1행"이 업데이트 되었습니다.) => 트랜젝션 처리
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql); //미완성 쿼리
+			
+			pstmt.setString(1, m.getUserName());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getEmail());
+			pstmt.setString(4, m.getAddress());
+			pstmt.setString(5, m.getInterest());
+			pstmt.setString(6, m.getUserId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+
+	}
+	
+	public Member selectMember(Connection conn,String userId) {
+		//select문=> 한행 => ResultSet 객체 => Member객체
+		Member m = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectMember"); //미완성
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1,userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("user_no"),
+						rset.getString("user_id"),
+						rset.getString("user_pwd"),
+						rset.getString("user_name"),
+						rset.getString("phone"),
+						rset.getString("email"),
+						rset.getString("address"),
+						rset.getString("interest"),
+						rset.getDate("enroll_date"),
+						rset.getDate("modify_date"),
+						rset.getString("status"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+	}
+	
+	public int updatePwd(Connection conn, String userId, String userPwd, String updatePwd) {
+		//update 문 => 처리된 행수 => 트랜젝션 처리
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updatePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, updatePwd);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userPwd);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	
+	}
+	
+	public int deleteMember(Connection conn, String userId, String userPwd) {
+		//update문 => 처리된 행수 => 트랜젝션 처리
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+		
+	}
+	
+	
+	
 }
