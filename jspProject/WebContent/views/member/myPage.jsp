@@ -24,12 +24,13 @@
 </head>
 <body>
 
-<%@ include file="../common/menubar.jsp" %>
+<!-- ../ => 현재 폴더에서 하나 뒤로 가기 -> 현재 myPage.jsp 에서 ../하면 views -->
+<%@ include file="../common/menubar.jsp" %> 
 
 <%
 	String userId = loginMember.getUserId();
 	String userName = loginMember.getUserName();
-	String phone = (loginMember.getPhone()==null)?"":loginMember.getPhone();
+	String phone = (loginMember.getPhone()==null)?"":loginMember.getPhone(); //삼항연산식 사용 a?b:c => a가 참이면 b, 거짓이면 c
 	String email  = (loginMember.getEmail()==null)?"":loginMember.getEmail();
 	String address = (loginMember.getAddress()==null)?"":loginMember.getAddress();
 	String interest = (loginMember.getInterest()==null)?"":loginMember.getInterest();

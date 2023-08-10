@@ -6,9 +6,9 @@
  
  	String contextPath = request.getContextPath(); // => /jsp 
  
- 	Member loginMember =(Member)session.getAttribute("loginMember");
- 	//로그인 시도 전 menubar.jsp 로딩 시 : null => case1
- 	//로그인 성공 후 menubar.jsp 로딩 시 : 로그인 성공한 회원의 정보가 담겨 있는 Member객체 =>case2
+ 	Member loginMember =(Member)session.getAttribute("loginMember"); //getAttribute자료형 => object -> 해당 문장은 자료형(Member) 받고 있기 때문에 Member로 형 변환
+ 	//로그인 시도 전 menubar.jsp 로딩 시 : null => case1(로그인 전)
+ 	//로그인 성공 후 menubar.jsp 로딩 시 : 로그인 성공한 회원의 정보가 담겨 있는 Member객체 =>case2 (로그인 후)
  
  	
 	String alertMsg = (String)session.getAttribute("alertMsg"); 
@@ -56,6 +56,7 @@
     
 </style>
 
+<!-- 부트스트랩 사용시 필요 주석 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
