@@ -31,6 +31,7 @@ public class LoginController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    //로그인
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//1)"전달 값에 한글"이 있을 경우 인코딩 처리해야 됨(POST방식에만)
@@ -70,7 +71,7 @@ public class LoginController extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}else {
-			//조회결과 있음 == 로그인 성공 => 메인페이지 응답ㅂ(index.jsp)
+			//조회결과 있음 == 로그인 성공 => 메인페이지 응답(index.jsp)
 			
 			//로그인한 회원정보(loginMember)를 session에 담기(여기저기서 가져다 쓸 수 있도록)
 			

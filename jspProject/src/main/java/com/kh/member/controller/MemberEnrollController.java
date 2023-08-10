@@ -31,9 +31,10 @@ public class MemberEnrollController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    //회원 가입 (입력 값 입력 후 가입하기) 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//1)인코딩 작업
+		//1)인코딩 작업 post방식 에서만 사용
 		request.setCharacterEncoding("UTF-8");
 		
 		//2)요청 시 전달 값 뽑아서 변수 및 객체에 기록하기
@@ -43,16 +44,16 @@ public class MemberEnrollController extends HttpServlet {
 		String phone = request.getParameter("phone");//"01011112222" | " " => 입력 값이 있으면 입력 값 출력, 없으면 공백 
 		String email = request.getParameter("email");//"adk@fkj" | " "
 		String address = request.getParameter("address"); //"경기도 의정부시" | " "
-		String[] interestArr = request.getParameterValues("interest"); //["운동","등산"] | null
+		String[] interestArr = request.getParameterValues("interest"); //["운동","등산"] | null => 여러개의 값이 담기기 떄문에 배열로 받는다.
 		
 		//기본 생성자로 생성 후 setter 메소드 이용해서 담기(담으려고 하는게 소량일 경우 추천)
-		//아싸리 매개변수 생성 자를 이용해서 생성과 동시에 담기 (담으려고 하는게 많을 경우 추천) 
+		//아싸리 매개변수 생성 자를 이용해서 생성과 동시에 담기 (담으려고 하는게 많을 경우 추천) => 사용
 		
-		//String[]  ----->String 변경
+		//String[]  ----->String 변경 => Member.java에서 String[]을 사용한 값이 없기 때문에 String 변경
 		//["운동","등산"] --> 운동,등산
-		String interest="";
-		if(interestArr != null) {
-			interest = String.join(",", interestArr);
+		String interest=""; 
+		if(interestArr != null) { //선택된 값이 있을 경우
+			interest = String.join(",", interestArr); 
 		}
 		
 		Member m = new Member(userId, userPwd, userName, phone, email, address,interest); //매개변수 7개인거 만들기(한개씩 값을 받는것 보다 양이 많으면 생성자 생성해서 담는게 좋다.)

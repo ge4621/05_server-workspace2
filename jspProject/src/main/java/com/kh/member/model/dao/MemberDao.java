@@ -42,7 +42,7 @@ public class MemberDao {
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userPwd);
 			
-			rset = pstmt.executeQuery(); //조회된 결과가 있다면 한 행 이 조회가 될 것이다. | 조회결과가 없다고 하면 아무것도 안담긴다.
+			rset = pstmt.executeQuery(); //조회된 결과가 있다면 한 행 이 조회가 될 것이다. | 조회결과가 없다고 하면 아무것도 안담긴다. select => executeQuery()
 			
 			if(rset.next()) {
 				m = new Member(rset.getInt("user_no"),
@@ -89,7 +89,7 @@ public class MemberDao {
 			pstmt.setString(6, m.getAddress());
 			pstmt.setString(7, m.getInterest()); //여기까지 오면 완변해진다.
 			
-			result = pstmt.executeUpdate();
+			result = pstmt.executeUpdate(); // insert => executeUpdate()
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

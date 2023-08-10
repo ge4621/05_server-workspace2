@@ -27,11 +27,12 @@ public class MemberEnrollFormController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    //회원가입 페이지 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//응답 페이지(회원 가입 페이지)
 		RequestDispatcher view = request.getRequestDispatcher("views/member/memberEnrollForm.jsp");
-		view.forward(request, response);
+		view.forward(request, response); //http://localhost:8001/jsp/enrollForm.me
 		
 	}
 

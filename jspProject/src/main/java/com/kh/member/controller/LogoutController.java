@@ -26,6 +26,7 @@ public class LogoutController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    //로그아웃
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//session을 사용하기 위해서 request의 도움을 받아야 한다.(상위버전의 값을 가져오기 위해서는 하위 버전의 도움을 받아야 한다.)

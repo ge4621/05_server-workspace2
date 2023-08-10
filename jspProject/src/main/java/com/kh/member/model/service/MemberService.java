@@ -9,7 +9,7 @@ import com.kh.member.model.vo.Member;
 
 public class MemberService {
 	
-	public Member loginMember(String userId, String userPwd) {
+	public Member loginMember(String userId, String userPwd) {//select문
 		//커넥션 객체 생성
 		Connection conn = /*JDBCTemplate.*/getConnection();
 		//Dao호출
@@ -19,17 +19,19 @@ public class MemberService {
 		return m;
 	}
 	
-	public int insertMember(Member m) {
+	public int insertMember(Member m) {//insert문 
+		//커넥션 객체 생성
 		Connection conn = /*JDBCTemplate.*/getConnection();
 		
 		int result = new MemberDao().insertMember(conn,m);
 		
 		//트랜젝션 처리
-		if(result > 0) {//성공
+		if(result > 0) {//성공 
 			commit(conn);
 		}else {//실패
 			rollback(conn);
 		}
+		//커넥션 반납
 		close(conn);
 		return result;
 	}
