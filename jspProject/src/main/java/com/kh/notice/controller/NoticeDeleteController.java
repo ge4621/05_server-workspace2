@@ -32,29 +32,21 @@ public class NoticeDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//전달값=>글 번호
-//		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-//		Notice n = new NoticeService().selectNotice(noticeNo);
-//		
-//		int result = new NoticeService().deleteNotice(n);
-//		
-//		if(result >0) {//성공
-//			 
-//         	//삭제 구현해보기
-//         	//url - mapping 맘대로
-//         	
-//         	//요청 성공시 => 공지사항 목록페이지 alert(공지사항이 성공적으로 삭제 되었습니다.) url재요청
-//         	//요청 실패시 => 에러 문구 보여지는 에러 페이지
-//			request.getSession().setAttribute("alertMsg", "공지사항이 성공적으로 삭제되었습니다.");
-//			response.sendRedirect(request.getContextPath() + "/list.no");
-//		
-//		}else {//실패
-//			request.setAttribute("errorMsg", "공지사항 삭제에 실패했습니다.");
-//			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-//			view.forward(request, response);
-//
-//		}
-//		
+		//인코딩 필요 없고, 받아야 하는 값 => 글 번호
+				int noticeNo = Integer.parseInt(request.getParameter("num"));
+				
+				int result = new NoticeService().deleteNotice(noticeNo);
+				
+				if(result > 0) {//성공
+					request.getSession().setAttribute("alertMsg", "공지사항 삭제에 성공했습니다.");
+					response.sendRedirect(request.getContextPath()+"/list.no");
+					
+				}else {//실패
+					request.setAttribute("errorMsg", "공지사항 삭제에 실패했습니다.");
+					RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+					view.forward(request, response);
+					
+				}
 	}
 
 	/**

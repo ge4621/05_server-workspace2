@@ -72,17 +72,21 @@ public class NoticeService {
 		
 	}
 	
-//	public int deleteNotice(Notice n) {
-//		Connection conn = getConnection();
-//		//int result = new NoticeDao().deleteNotice(conn, n);
-//		
-//		if(result > 0) {
-//			commit(conn);
-//		}else {
-//			rollback(conn);
-//		}
-//		close(conn);
-//		return result;
-//	}
-//	
+	public int deleteNotice(int noticeNo) {
+		//커넥션 생성
+		Connection conn = getConnection();
+		
+		//dao호출 
+		int result = new NoticeDao().deleteNotice(conn,noticeNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
+	
 }
