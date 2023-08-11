@@ -84,18 +84,18 @@ public class MemberService {
 	
 	
 	public int deleteMember(String userId,String userPwd) {
-		
+		//케넥션 생성
 		Connection conn = getConnection();
-		
+		//Dao 불려오기, Dao에서 커넥션을 돌려야 하기 때문에 conn도 넘겨야 됨
 		int result = new MemberDao().deleteMember(conn,userId,userPwd);
 		
 	
-		if(result >0) {
-			commit(conn);
-		}else {
-			rollback(conn);
+		if(result >0) { //성공시 => 성공하면 값이 1
+			commit(conn); //변경된 정보 확졍
+		}else {//실패 => 실패하면 값이 0
+			rollback(conn); //변경된 정보 원래대로 돌리기
 		}
-		close(conn);
+		close(conn); //커넥션 반납 (생성했기 때문에 반납 꼭해야됨)
 		return result;
 	}
 	

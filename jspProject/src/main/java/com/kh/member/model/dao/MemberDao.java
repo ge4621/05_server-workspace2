@@ -200,18 +200,22 @@ public class MemberDao {
 	public int deleteMember(Connection conn, String userId, String userPwd) {
 		//update문 => 처리된 행수 => 트랜젝션 처리
 		
+		//처리된 행수를 담아둘 공간
 		int result = 0;
+		
+		//쿼리 돌리기 위해 필요
 		PreparedStatement pstmt = null;
 		
+		//돌여야 하는 쿼리
 		String sql = prop.getProperty("deleteMember");
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql); //미완성 쿼리(쿼리 돌리기 준비)
 			
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userPwd);
 			
-			result = pstmt.executeUpdate();
+			result = pstmt.executeUpdate(); //완벽해진 쿼리(자료형이 int)를 result에 담기
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
