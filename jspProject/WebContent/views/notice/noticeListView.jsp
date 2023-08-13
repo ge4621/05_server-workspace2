@@ -36,7 +36,9 @@
 
 </head>
 <body>
+	<!-- 메뉴바 include -->
 	<%@ include file = "../common/menubar.jsp" %>
+	
     <div class="outer">
         <br>
         <h2 align="center">공지사항</h2>
@@ -62,8 +64,8 @@
                     <th width="100">작성일</th>
                 </tr>
             </thead>
+            
             <tbody>
-      
                 <!--case1. 공지글이 없을 경우-->
                 <%if(list.isEmpty()){ %>
                 <tr>

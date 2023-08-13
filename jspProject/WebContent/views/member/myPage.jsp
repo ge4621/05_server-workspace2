@@ -107,15 +107,9 @@
             				$(this).attr("checked",true); //arrt => 속성 변경
             			}
             		})
-            		
-            		
-            		
             	})
             	
             </script>
-            
-            
-            
             
 
             <br><br>
