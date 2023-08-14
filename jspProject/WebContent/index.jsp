@@ -40,9 +40,7 @@
 
 	<%@ include file="views/common/menubar.jsp" %>
 
-
-
-
+	
 
 </body>
 </html>

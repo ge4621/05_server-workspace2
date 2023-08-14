@@ -63,13 +63,14 @@ public class LoginController extends HttpServlet {
 		 * 아래로 내려올수록 담는 곳의 공간이 좁다. page가 가장 작은 범위 -> application이 가장 큰 범위
 		 */
 
-		if(loginMember == null) {
+		if(loginMember == null) {//loginMember안에 있는 값이 없을 경우
 			//조회결과 없음 == 로그인 실패!! => 에러문구가 보여지는 에러페이지 응답
 			request.setAttribute("errorMsg", "로그인 실패");
 			//응답페이지(jsp)에게 위임시 필요한 객체 => RequestDispatcher
 			//포워딩 방식
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
+			
 		}else {
 			//조회결과 있음 == 로그인 성공 => 메인페이지 응답(index.jsp)
 			

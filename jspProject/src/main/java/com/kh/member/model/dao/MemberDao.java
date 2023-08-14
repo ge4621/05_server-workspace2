@@ -13,13 +13,13 @@ import com.kh.member.model.vo.Member;
 
 public class MemberDao {
 
-	private Properties prop = new Properties();
+	private Properties prop = new Properties(); //전역으로 선언해서 사용하기 편하게 함
 	
 	public MemberDao() {//생성자
 		String filePath = MemberDao.class.getResource("/db/sql/member-mapper.xml").getPath();
 		
 		try {
-			prop.loadFromXML(new FileInputStream(filePath));
+			prop.loadFromXML(new FileInputStream(filePath)); //파일 불려오기
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -37,7 +37,7 @@ public class MemberDao {
 														// db->sql->member-mapper.xml안에 있다.
 		
 		try {
-			pstmt = conn.prepareStatement(sql);//미완성된 쿼리
+			pstmt = conn.prepareStatement(sql);//미완성된 쿼리 => 필요한 값 2개 순서대로 userId, userPwd
 			
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userPwd);

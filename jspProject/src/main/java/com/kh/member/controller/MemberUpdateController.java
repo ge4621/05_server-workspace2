@@ -56,7 +56,7 @@ public class MemberUpdateController extends HttpServlet {
 		Member updateMem = new MemberService().updateMember(m);
 		
 		if(updateMem != null) {//성공
-			
+			//update된 값이 있을 경우
 			//session에 담겨있는 loginMember를 바꿔치기 작업
 			
 			HttpSession session = request.getSession();

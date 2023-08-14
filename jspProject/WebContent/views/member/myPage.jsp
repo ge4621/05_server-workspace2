@@ -111,7 +111,6 @@
             	
             </script>
             
-
             <br><br>
 
             <div align="center">
@@ -122,6 +121,8 @@
 
         </form>
      </div>
+     
+     
      
      <!-- 비밀번호 변경 용 Modal -->
 	<div class="modal" id="updatePwdModal">

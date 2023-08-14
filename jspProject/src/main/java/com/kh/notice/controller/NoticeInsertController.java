@@ -41,16 +41,17 @@ public class NoticeInsertController extends HttpServlet {
 		
 		//로그인한 회원 정보를 얻어내는 방법
 		//1. input type = "hidden" 으로 애초에 요청시 숨겨서 전달하기
-		//2. session에 담겨있는 loginMember를 활용하는 방법
+		//2. session에 담겨있는 loginMember를 활용하는 방법 -> 이용
 		
 		HttpSession session = request.getSession();
 		int userNo = ((Member)session.getAttribute("loginMember")).getUserNo();
+		//session.getAttribute("loginMember") => 자료형 : object , loginMember 로 인해 자료형 Member 로 받고, loginMember안에 있는 userNo이 필요하기 때문에 한번더 묶어줘야한다.
 		
 		Notice n = new Notice();
 		n.setNoticeTitle(noticeTitle);
 		n.setNoticeContent(noticeContent);
 		
-		//n.setNoticeWriter(userNo + ""); //방법1
+		//n.setNoticeWriter(userNo + ""); //방법1 형변환(int ->  String)
 		n.setNoticeWriter(String.valueOf(userNo)); //방법2
 		
 		int result = new NoticeService().insertNotice(n);

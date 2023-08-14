@@ -31,10 +31,11 @@ public class LogoutController extends HttpServlet {
 		
 		//session을 사용하기 위해서 request의 도움을 받아야 한다.(상위버전의 값을 가져오기 위해서는 하위 버전의 도움을 받아야 한다.)
 		//로그아웃 요청 처리 => session 만료 시키기 == 세션을 null로 만들어서 무효화 시키기
-		//HttpSession session = request.getSession(); // getSession의 자료형 => HttpSession
-		//session.invalidate(); // 세션 초기화
 		
-		//위 두줄 한줄로 하기
+		//HttpSession session = request.getSession(); // getSession의 자료형 => HttpSession
+		//session.invalidate(); // 세션 초기화 => 저장된 세션 모두 초기화 시키기??
+		
+		//위 두줄 한줄로 하기 
 		request.getSession().invalidate();
 		
 		//응답페이지 => index.jsp 페이지 => url재요청(한번이라도 본 화면이여서 가능)

@@ -34,7 +34,7 @@ public class MemberEnrollController extends HttpServlet {
     //회원 가입 (입력 값 입력 후 가입하기) 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//1)인코딩 작업 post방식 에서만 사용
+		//1)인코딩 작업 post방식 에서만 사용 ->post방식이여도 한글 값이 없다면 굳이 안써도 된다.
 		request.setCharacterEncoding("UTF-8");
 		
 		//2)요청 시 전달 값 뽑아서 변수 및 객체에 기록하기
@@ -74,14 +74,11 @@ public class MemberEnrollController extends HttpServlet {
 			
 		}else {//실패
 			request.setAttribute("errorMsg", "회원 가입에 실패했습니다.");
+			
+			//forward방식
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}
-		
-		
-		
-		
-		
 		
 	}
 

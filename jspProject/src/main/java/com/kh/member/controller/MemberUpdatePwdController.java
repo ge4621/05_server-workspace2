@@ -39,7 +39,7 @@ public class MemberUpdatePwdController extends HttpServlet {
 		
 		Member updateMem = new MemberService().updatePwd(userId,userPwd,updatePwd);
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(); //if밖에 써서 전역?으로 사용 할 수 있다. if안에 썼다면 2번 사용했을 것
 		
 		if(updateMem == null) {//실패
 			session.setAttribute("alertMsg", "비밀번호 변경에 실패했습니다.");
@@ -48,7 +48,7 @@ public class MemberUpdatePwdController extends HttpServlet {
 			session.setAttribute("loginMember", updateMem); //session 바꾸기 => loginMember에 있던 값을 updateMem의 값으로
 			session.setAttribute("alertMsg", "성공적으로 비밀번호가 변경되었습니다.");
 		}
-		response.sendRedirect(request.getContextPath() + "/myPage.me");
+		response.sendRedirect(request.getContextPath() + "/myPage.me"); //비밀번호 없데이트 후, 실패든 성공이든 보여지는 화면에 마이페이지
 		
 	}
 

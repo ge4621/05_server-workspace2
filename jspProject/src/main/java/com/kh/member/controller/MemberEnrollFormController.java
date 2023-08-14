@@ -27,10 +27,10 @@ public class MemberEnrollFormController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    //회원가입 페이지 폼
+    //회원가입 페이지 폼을 보여주기만 하면 되기 때문에 값을 받을 필요가 없다.
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//응답 페이지(회원 가입 페이지)
+		//응답 페이지(회원 가입 페이지) - forward방식으로 => 회원가입 페이지는 회원 가입을 하기 위해 들어가는거 아니면 방문할 이유가 없기 때문에 기록이 없다.
 		RequestDispatcher view = request.getRequestDispatcher("views/member/memberEnrollForm.jsp");
 		view.forward(request, response); //http://localhost:8001/jsp/enrollForm.me
 		
