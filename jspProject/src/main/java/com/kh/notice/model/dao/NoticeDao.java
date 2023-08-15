@@ -174,11 +174,11 @@ public class NoticeDao {
 		String sql = prop.getProperty("deleteNotice");
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql); //미완성 쿼리
 			
-			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(1, noticeNo); //미완성 쿼리에서 필요한 값을 얻어 완벽한 쿼리가 된다.
 			
-			result = pstmt.executeUpdate();
+			result = pstmt.executeUpdate(); //result에 담기
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

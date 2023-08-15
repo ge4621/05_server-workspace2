@@ -79,6 +79,7 @@ public class NoticeService {
 		//dao호출 
 		int result = new NoticeDao().deleteNotice(conn,noticeNo);
 		
+		
 		if(result > 0) {
 			commit(conn);
 		}else {

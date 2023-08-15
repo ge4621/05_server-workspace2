@@ -29,7 +29,7 @@
 <body>
 	
 	<%@ include file = "../common/menubar.jsp" %>
-	
+
     <div class="outer" align="center">
         <br>
         <h2 align="center">공지사항 상세 보기</h2>
