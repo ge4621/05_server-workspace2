@@ -79,10 +79,10 @@ public class NoticeService {
 		//dao호출 
 		int result = new NoticeDao().deleteNotice(conn,noticeNo);
 		
-		
-		if(result > 0) {
+		//트렌젝션처리
+		if(result > 0) { //성공
 			commit(conn);
-		}else {
+		}else {//실패
 			rollback(conn);
 		}
 		close(conn);

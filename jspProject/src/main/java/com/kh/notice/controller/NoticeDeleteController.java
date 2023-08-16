@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.notice.model.service.NoticeService;
 import com.kh.notice.model.vo.Notice;
@@ -39,6 +40,9 @@ public class NoticeDeleteController extends HttpServlet {
 				int result = new NoticeService().deleteNotice(noticeNo);
 				
 				if(result > 0) {//성공
+//					HttpSession session =request.getSession();
+//					session.setAttribute("alertMsg", "공지사항 삭제에 성공했습니다.");
+					
 					request.getSession().setAttribute("alertMsg", "공지사항 삭제에 성공했습니다.");
 					response.sendRedirect(request.getContextPath()+"/list.no");
 					
