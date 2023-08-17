@@ -53,10 +53,10 @@ public class BoardListController extends HttpServlet {
 		currentPage = Integer.parseInt(request.getParameter("cpage")); //currentPage의 자료형은 int, getParameter의 자료형은 String
 																	//request.getParameter("cpage") =>String but currentPage가 int이기 때문에 형변환
 		
-		// pageLimit : 페이징바의 페이지 최대 개수
+		// pageLimit : 페이징바의 페이지 최대 개수, 내가 정할 수 있다.
 		pageLimit = 10;
 		
-		// boardLimit : 한 페이지 내에서 보여줄 최대 게시물
+		// boardLimit : 한 페이지 내에서 보여줄 최대 게시물, 내가 정할 수 있다.
 		boardLimit = 10;
 		
 		/*
@@ -143,7 +143,7 @@ public class BoardListController extends HttpServlet {
 		//현재 요청한 페이지(currentPage)에 보여질 게시글 리스트 boardLimit 수 만큼 조회하기
 		ArrayList<Board> list = new BoardService().selectList(pi);
 		
-		request.setAttribute("pi", pi);
+		request.setAttribute("pi", pi); //페이징 바의 변경을 위해 pi를 가져가야한다.
 		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("views/board/boardListView.jsp").forward(request, response);
