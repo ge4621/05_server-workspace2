@@ -33,6 +33,11 @@
             border: 1px solid white;
             text-align: center;
         }
+        
+        .list-area>tbody>tr:hover{
+        	background: gray;
+        	cursor:pointer;
+        }
 
     </style>
 
@@ -90,6 +95,21 @@
 			
             </tbody>
         </table>
+        
+        <script>
+        	$(function(){
+        		$(".list-area>tbody>tr").click(function(){
+        			//const num = $(this).children().eq(0).text()
+        			
+        			location.href='<%=contextPath%>/detail.bo?bno='+ $(this).children().eq(0).text()
+        			
+        			
+        		})
+        	})
+        
+        </script>
+        
+        
         <br><br>
 
         <div class="paging-area" align="center">
