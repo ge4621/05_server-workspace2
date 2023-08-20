@@ -9,6 +9,7 @@ import com.kh.member.model.vo.Member;
 
 public class MemberService {//service에서는 connection 생성 -> dao호출 -> connection 반납 -> 값 리턴만 하면 됨
 							//대신 insert문 같은 경우 트랜젝션 처리가 이루어 져야 한다.(트랜젝션 처리가 이루어 지는 경우 => 오라클 사용시 한행이 어떻게 되었습니다. 하는 경우 
+							//트랜젝션은 db에서 조회하거나 추가할때 스크립트 창에 "한행이 어쩌구저쩌거"라고 하면 해야 한다.
 	
 	public Member loginMember(String userId, String userPwd) {//select문
 		//커넥션 객체 생성
@@ -39,7 +40,7 @@ public class MemberService {//service에서는 connection 생성 -> dao호출 ->
 	}//회원 가입
 	
 	
-	public Member updateMember(Member m) {
+	public Member updateMember(Member m) { //update문
 		
 		//커넥션 객체 생성
 		Connection conn = getConnection();

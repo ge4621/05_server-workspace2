@@ -52,7 +52,7 @@ public class MemberUpdateController extends HttpServlet {
 		
 		Member m = new Member(userId,userName, phone, email, address, interest); //매개변수 생성 => 위에서 받는 값들이 많기 떄문에 매개변수를 만들어서 하면 조금 편하게 값을 받을 수 있다.
 		
-		//서비스 호출 => 위에서 받은 m을 이용해서 서비스 호출
+		//서비스 호출 => 위에서 받은 m을 이용해서 서비스 호출 m=>서비스로 넘겨야 하는 값들
 		Member updateMem = new MemberService().updateMember(m);
 		
 		if(updateMem != null) {//성공

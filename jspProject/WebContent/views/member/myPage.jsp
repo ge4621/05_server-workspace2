@@ -138,6 +138,7 @@
 	      <!-- Modal body -->
 	      <div class="modal-body" align="center">
 	        <form action="<%=contextPath %>/updatePwd.me" method="post">
+	        	<!-- 해당 form에서 받는 값은 비밀번호 관련된 값들인데 controller로 넘어가면 아이디 값도 필요 => hidden으로 숨겨서 넘겨야 한다. -->
 	        	<input type="hidden" name="userId" value="<%=userId %>" >
 	        	
                 <table>
@@ -166,7 +167,8 @@
                 function vaildatePwd(){
                     if($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()){
                         alert("변경할 비밀번호가 일치하지 않습니다.");
-                        return false;
+                        return false; 
+                        //false를 반환화면 form태그 안에 있는 값이 다음으로 넘어가지 않는다.
                     }
                 }
             </script>
