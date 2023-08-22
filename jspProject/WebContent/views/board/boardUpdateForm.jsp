@@ -54,8 +54,9 @@
         <br>
 
 
-        <form id="update-form" action="" method="post" enctype="multipart/form-data">
-        
+        <form id="update-form" action="<%=contextPath %>/update.bo" method="post" enctype="multipart/form-data">
+        	<input type="hidden" name="bno" value="<%=b.getBoardNo() %>" />
+        <!-- 카테고리번호, 제목, 내용, 점부파일 한개, 게시글 번호 -->
 
             <table align="center">
                 <tr>
@@ -97,6 +98,7 @@
                     	<%if(at != null){ %>
                         <!--현재 이 게시글에 딸린 첨부파일이 있을 경우-->
                         <%=at.getOriginName() %>
+                        <input type="hidden" name="originFileNo" value="<%=at.getFileNo()%>">
                         <%} %>
                         <input type="file" name="upfile" id=""></td>
                 </tr>
