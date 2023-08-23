@@ -31,7 +31,7 @@ public class LoginController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    //로그인
+    //로그인 -필요한 값:아이디 비밀번호
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//1)"전달 값에 한글"이 있을 경우 인코딩 처리해야 됨(POST방식에만)
@@ -43,7 +43,9 @@ public class LoginController extends HttpServlet {
 		
 		//3)요청 처리(db에 sql문 실행)
 		//	해당 요청을 처리하는 서비스 클래스의 메소드 호출 및 결과 받기
-		Member loginMember = new MemberService().loginMember(userId, userPwd);
+		Member loginMember = new MemberService().loginMember(userId, userPwd);  //서비스로 넘겨야 하는 값 => 위에서 객체에 저장한 값
+		//Member 라는 자료형안에 loginMember라는 변수
+		
 		System.out.println(loginMember); 
 		
 		

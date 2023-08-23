@@ -89,7 +89,7 @@ public class MemberDao {
 			pstmt.setString(6, m.getAddress());
 			pstmt.setString(7, m.getInterest()); //여기까지 오면 완변해진다.
 			
-			result = pstmt.executeUpdate(); // insert => executeUpdate()
+			result = pstmt.executeUpdate(); // insert => executeUpdate() => 쿼리 돌릴준비 끝
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

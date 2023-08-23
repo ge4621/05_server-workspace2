@@ -34,6 +34,9 @@ public class MemberEnrollFormController extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher("views/member/memberEnrollForm.jsp");
 		view.forward(request, response); //http://localhost:8001/jsp/enrollForm.me
 		
+		//request.getRequestDispatcher("views/member/memberEnrollForm.jsp").forward(request, response); 위의 코드 한줄 코드 => 한줄 코드는 언제든지 사용가능인가???
+		
+		
 	}
 
 	/**

@@ -31,7 +31,7 @@ public class MemberEnrollController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    //회원 가입 (입력 값 입력 후 가입하기) 
+    //회원 가입 (입력 값 입력 후 가입하기)  - 필요한 정보 : 아이디, 비밀버호, 이름, 전화번호, 이메일, 주소, 관심분야
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//1)인코딩 작업 post방식 에서만 사용 ->post방식이여도 한글 값이 없다면 굳이 안써도 된다.
@@ -51,7 +51,7 @@ public class MemberEnrollController extends HttpServlet {
 		
 		//String[]  ----->String 변경 => Member.java에서 String[]을 사용한 값이 없기 때문에 String 변경
 		//["운동","등산"] --> 운동,등산
-		String interest=""; 
+		String interest="";  //빈 String 자료형 만들기. 여기에 String[]에서 String로 바뀐 값을 넣음
 		if(interestArr != null) { //선택된 값이 있을 경우
 			interest = String.join(",", interestArr); 
 		}
@@ -60,7 +60,9 @@ public class MemberEnrollController extends HttpServlet {
 		
 		//3) 요청 처리(db에 sql문 실행) => 서비스 메소드 호출 및 결과 받기
 		
-		int result = new MemberService().insertMember(m);
+		int result = new MemberService().insertMember(m); //m은 위에서 만든 값이 들어 있는 아이
+		
+		
 		
 		//4)처리결과를 가지고 사용자가 보게 될 응답 뷰 지정 후 포워딩 또는 url 재요청
 		

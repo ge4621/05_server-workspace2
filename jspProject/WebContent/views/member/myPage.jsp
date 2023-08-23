@@ -46,7 +46,7 @@
             <table>
                 <tr>
                     <td>* 아이디</td>
-                    <td><input type="text" name="userId" maxlength="12" value="<%=userId %>" readonly></td>
+                    <td><input type="text" name="userId" maxlength="12" value="<%=userId %>" required></td>
                    
                 </tr>
                 <tr>

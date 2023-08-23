@@ -15,7 +15,7 @@ public class MemberService {//service에서는 connection 생성 -> dao호출 ->
 		//커넥션 객체 생성
 		Connection conn = /*JDBCTemplate.*/getConnection();
 		//Dao호출
-		Member m = new MemberDao().loginMember(conn,userId, userPwd);
+		Member m = new MemberDao().loginMember(conn,userId, userPwd); //conn은 쿼리를 돌리기 위해 필요
 		
 		/*JDBCTemplate.*/close(conn);
 		return m;
