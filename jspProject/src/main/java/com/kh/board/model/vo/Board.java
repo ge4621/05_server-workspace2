@@ -1,5 +1,6 @@
 package com.kh.board.model.vo;
 
+
 public class Board {
 
 	private int boardNo;
@@ -11,6 +12,9 @@ public class Board {
 	private int count;
 	private String createDate;
 	private String status;
+	
+	private String titleImg; // 대표이미지를 보관
+
 	
 	public Board() {}//기본 생성자
 
@@ -128,6 +132,18 @@ public class Board {
 		this.status = status;
 	}
 
+	
+	
+	public String getTitleImg() {
+		return titleImg;
+	}
+
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
+
+	
+	
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", boardType=" + boardType + ", category=" + category + ", boardTitle="

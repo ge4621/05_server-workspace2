@@ -1,5 +1,11 @@
+<%@page import="com.kh.board.model.vo.Board"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+ <% 
+ 	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
+  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +32,11 @@
         display: inline-block;
         margin: 14px;
     }
+    
+    .thumbnail:hover{
+    	cursor:pointer;
+    	opacity: 0.7;
+    }
 
 
 </style>
@@ -51,58 +62,32 @@
 		
         <div class="list-area">
 
-            <!--썸네일 한개-->
-            <div class="thumbnail" align="center">
-                <img src="" width="200" height="150">
-                <p>
-                    No.20 하늘사진(게시글제목) <br>
-                    조회수 : 500
-                </p>
-            </div>
-
-            <div class="thumbnail" align="center">
-                <img src="" width="200" height="150">
-                <p>
-                    No.20 하늘사진(게시글제목) <br>
-                    조회수 : 500
-                </p>
-            </div>
-
-            <div class="thumbnail" align="center">
-                <img src="" width="200" height="150">
-                <p>
-                    No.20 하늘사진(게시글제목) <br>
-                    조회수 : 500
-                </p>
-            </div>
-
-            <div class="thumbnail" align="center">
-                <img src="" width="200" height="150">
-                <p>
-                    No.20 하늘사진(게시글제목) <br>
-                    조회수 : 500
-                </p>
-            </div>
-
-
+			<%for(Board b :list){ %>
+	            <!--썸네일 한개-->
+	            <div class="thumbnail" align="center">
+	            	<input type="hidden" value="<%=b.getBoardNo() %>">
+	                <img src="<%= contextPath %>/<%=b.getTitleImg() %>" width="200" height="150">
+	                <p>
+	                    No.<%=b.getBoardNo()  %> <%=b.getBoardTitle() %> <br>
+	                    조회수 : <%=b.getCount() %>
+	                </p>
+	            </div>
+			<%} %>
+          
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+		<script>
+			$(function(){
+				$(".thumbnail").click(function(){
+					location.href="<%=contextPath%>/detail.th?bno=" + $(this).children("input").val();
+				})
+			})
+		
+		</script>
 
 
     </div>
-
+	            	
 
 
 
