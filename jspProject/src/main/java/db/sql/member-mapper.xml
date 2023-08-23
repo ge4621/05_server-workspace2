@@ -98,6 +98,12 @@ UPDATE MEMBER
 
 </entry>
 
+<entry key="idcheck">
+SELECT
+        COUNT(*) "COUNT"
+    FROM MEMBER
+WHERE USER_ID = ?
+</entry>
 
 
 

@@ -5,12 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
 </head>
 <body>
 	
 	<h1>AJAX의 개요</h1>
 	
 	<p>
+
 		Asynchronous JavaScript And XML의 약자로  <br>
 		서버로부터 데이터를 가져와 전체 페이지를 새로고치지 않고 일부만 로드할 수 있게 하는 기법 <br>
 		우리가 기존에 a태그로 요청 및 form submit 요청 방식은 "동기식 요청" => 응답페이지가 돌아와야만 볼 수 있음(페이지가 깜빡 거림) <br><br>
@@ -31,10 +34,106 @@
 			<li>요청 보내놓고 그에 해당 하는 응답(데이터)이 돌아올떄가지 현재페이지에서 다른 작업을 할 수 있다.</li>
 			<li>페이지 깜빡거리지 않음</li>
 		</ul>
+		ex) 실시간 급상승 검색어 로딩, 검색어 자동 완성, 아이디 중복체크, 찜하기/해제하기, 추천, 댓글,무한스크롤링(페이지 대체) 등등....
+		<br><br>
+
+		* 비동기식의 단점 <br><br>
+		- 현재 페이지의 지속적으로 리소스가 쌓임 => 페이지가 느려질 수 있음 <br>
+		- 에러 발생시 디버깅 어려움 <br>
+		- 요청 처리 후에 돌아온 응답데이터를 가지고 현재페이지에 새로운 요소를 만들어서 뿌려줘야될꺼임 => dom 요소들을 새로이 만들어내는 구문을 잘 익혀둬야됨
+		<br><br>
+
+		* AJAX구현 방식 => 순수 JavaScript 방식 / jQuery 방식(코드가 간결하고 사용하기 쉬움)
 
 	</p>
+
+	<pre>
+
+		*jQuery 방식으로 AJAX 통신
+
+		$.ajax({
+			속성명 : 속성값,
+			속성명 : 속성값,
+			속성명 : 속성값,
+			........
+			속성명 : 속성값
+		});
+
+		* 주요 속성
+		- url : 요청할 url(필수 속성!)
+		- type|method : 요청전송방식(get/post)
+		- data : 요청시 전달할 값
+		- success : ajax통신 성공했을 때 실행 할 함수 정의
+		- error : ajax통신 실패했을 때 실행 할 함수 정의
+		- complete : ajax통신 실패했든 성공했든 간에 무조건 실행할 함수 정의
+		* 부수적인 속성
+		- async : 서버와의 비동기 처리 방식 설정 여부 (기본값 true)
+		- contentType : request 의 데이터 인코딩 방식 정의 (보내는 측의 데이터 인코딩)
+		- dataType : 서버에서 response 로 오는 데이터의 데이터 형 설정, 값이 없다면 스마트하게 판단함
+						xml : 트리 형태의 구조
+						json : 맵 형태의 데이터 구조 (일반적인 데이터 구조)
+						script : javascript 및 일반 String 형태의 데이터
+						html : html 태그 자체를 return 하는 방식
+						text : String 데이터
+		- accept : 파라미터의 타입을 설정 (사용자 특화 된 파라미터 타입 설정 가능)
+		- beforeSend : ajax 요청을 하기 전 실행되는 이벤트 callback 함수 (데이터 가공 및 header 관련 설정)
+		- cache : 요청 및 결과값을 scope 에서 갖고 있지 않도록 하는 것 (기본값 true)
+		- contents : jQuery 에서 response 의 데이터를 파싱하는 방식 정의
+		- context : ajax 메소드 내 모든 영역에서 파싱 방식 정의
+		- crossDomain : 타 도메인 호출 가능 여부 설정 (기본값 false)
+		- dataFilter : response 를 받았을 때 정상적인 값을 return 할 수 있도록 데이터와 데이터 타입 설정
+		- global : 기본 이벤트 사용 여부 (ajaxStart, ajaxStop) (버퍼링 같이 시작과 끝을 나타낼 때, 선처리 작업)
+		- password : 서버에 접속 권한 (비밀번호) 가 필요한 경우
+		- processData : 서버로 보내는 값에 대한 형태 설정 여부 (기본 데이터를 원하는 경우 false 설정)
+		- timeout : 서버 요청 시 응답 대기 시간 (milisecond)
+
+
+	</pre>
+	
+	<h1>jQuery방식을 이용한 AJAX 테스트</h1>
+
+	<h3>1. 버튼 클릭시 get방식으로 서버에 요청 및 응답</h3>
+	
+	입력 : <input type="text" id="input1">
+	<button id="btn1">전송</button>
+	<br>
+	
+	응답 : <span id="output1">현재는 응답이 없음</span>
 	
 	
+	<script>
+		$(function(){
+			$("#btn1").click(function(){
+			
+				//기존에 동기식 통신
+				//location.href = 'jqAjax1.do?input='+$("#input1").val();
+				
+				//비동기식 통신
+				$.ajax({
+					url:"jqAjax1.do", // 어느url로 보낼것인지
+					data:{input:$("#input1").val()}, //보낼 데이터, 키:벨류세트로 보내야함
+					type:"get", // 요청 방식 지정
+					
+					//응답을 받아주기
+					success:function(result){ //성공시 응답데이터가 자동으로 매개변수로 넘어옴
+						console.log("ajax 통신성공")
+						console.log(result);
+						$("#output1").text(result)
+					
+					},
+					error:function(){
+						console.log("ajax 통신실패!!....")
+					},
+					complete:function(){
+						console.log("ajax통신 성공여부와 관계없이 무조건 호출!!")
+					}
+					
+				})
+				
+			})
+		})	
+	
+	</script>
 	
 </body>
 </html>

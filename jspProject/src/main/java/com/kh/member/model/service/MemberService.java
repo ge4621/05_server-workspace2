@@ -105,6 +105,13 @@ public class MemberService {//service에서는 connection 생성 -> dao호출 ->
 		return result;
 	} //회원 삭제
 	
-	
+	public int idCheck(String checkId) {
+		Connection conn = getConnection();
+		
+		int count = new MemberDao().idcheck(conn,checkId);
+		
+		close(conn);
+		return count;
+	}
 	
 }
