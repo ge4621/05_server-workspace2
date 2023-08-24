@@ -134,6 +134,161 @@
 		})	
 	
 	</script>
+
+	<br>
+
+	<h3>2. 버튼 클릭시 post 방식으로 서버에 여러개의 데이터 전송 및 응답</h3>
 	
+	이름 : <input type="text" id="input2_1"> <br>
+	나이 : <input type="number" id="input2_2"> <br>
+
+	<button onclick="test2();">전송</button> <br>
+
+	<!--  
+	
+	응답 : <label id="output2"></label>
+
+	<script>
+		function text2(){
+			//객체는 중괄호로 감싸져 있다.
+			//속성명:속성값
+			$.ajax({ //ajax필수 속성 값 => url
+				url:"jqAjax2.do",
+				data:{
+					name:$("#input2_1").val(), //name, age같은 속성명은 각자 알아서 정하는것 (키벨류에서 키값에 해당하는 값)
+					age:$("#input2_2").val()
+				},//data는 항상 객체 형태로 갖고 옴
+				type:"post",
+				success:function(a){ //success와 error은 function으로 해야 한다.
+					
+					$("#output2").text(a);
+					$("#input2_1").val("");
+					$("#input2_2").val("");
+					
+				},
+				error:function(){
+					console.log("ajax 통신 실패")
+				}
+			})
+
+		}
+	</script>
+	
+	-->
+	
+	<!-- v2 -->
+	응답
+	<ul id="output2">
+		
+	</ul>
+	
+	<script>
+		function test2(){
+			$.ajax({
+				url:"jqAjax2.do",
+				data:{
+					name:$("#input2_1").val(),
+					age:$("#input2_2").val()
+				},
+				type:"post",
+				success:function(a){
+					/* JSONArray의 경우
+					console.log(a);
+					console.log(a[0]);
+					console.log(a[1]);
+					*/
+					
+					/*JSONObject의 경우 => 객체는 속성에 접근할 때는 . 을 사용 => 객체는 인덱스 개념이 없기 때문에*/
+					console.log(a);
+					console.log(a.name);
+					console.log(a.age);
+					
+					const value = "<li>"+ a.name +"</li>"
+								+ "<li>"+ a.age + "</li>";
+								
+					$("#output2").html(value);
+					
+				},error:function(){
+					console.log("ajax 통신 실패!!!");
+				}
+				
+			})
+		}
+	</script>
+
+	<br>
+	
+	<h3>3. 서버에 데이터 전송후, 조회된 vo 객체를 응답데이터로</h3>
+
+	검색하고자 하는 회원 번호 : <input type="number" id="input3">
+	<button onclick="test3();">조회</button>
+
+	<div id="output3"></div>
+
+	<script>
+		function test3(){
+			$.ajax({
+
+				url:"JqAjax3.do",
+				data:{no:$("#input3").val()},
+				success:function(result){
+					console.log(result);
+					
+					const value = " 이름 : " + result.userName + "<br>"
+										+", 나이 : " + result.age + "<br>"
+										+", 성별 : " + result.gender;
+					
+					$("#output3").html(value);
+					
+					
+				},error:function(){
+					console.log("ajax 통신 실패")
+				}
+
+
+			})
+		}
+	</script>
+
+	<br>
+
+	<h3>4. 응답데이터로 조회된 여러 vo객체들이 담겨있는 ArrayList 받기</h3>
+
+	<button onclick="test4();">회원 전체조회</button>
+	<br><br>
+
+	<table id="output4" border="1">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>나이</th>
+				<th>성별</th>
+			</tr>
+		</thead>
+
+		<tbody>
+
+		</tbody>
+
+	</table>
+
+	<script>
+		function test4(){
+			$.ajax({
+				url:"jqAjax4.do",
+				success:function(result){
+					console.log(result);
+					
+				},error:function(){
+					console.log("ajax 통신 실패");
+				}
+			})
+		}
+	</script>
+
+
+
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>
