@@ -30,7 +30,7 @@ public class NoticeListController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 * 목록가기
-	 * 
+	 * 공지사항 게시글 목록 화면 => 게시글이 없을 경우 한개 있을 경우, 여러개 있을 경우 가 있어 배열에 저장한는 건가???
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//[1,2) 요청시 전달 값 받기]

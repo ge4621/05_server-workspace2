@@ -32,7 +32,7 @@ public class MemberEnrollFormController extends HttpServlet {
 		
 		//응답 페이지(회원 가입 페이지) - forward방식으로 => 회원가입 페이지는 회원 가입을 하기 위해 들어가는거 아니면 방문할 이유가 없기 때문에 기록이 없다.
 		RequestDispatcher view = request.getRequestDispatcher("views/member/memberEnrollForm.jsp");
-		view.forward(request, response); //http://localhost:8001/jsp/enrollForm.me
+		view.forward(request, response); //http://localhost:8001/jsp/enrollForm.me //view.forward를 해야 완성
 		
 		//request.getRequestDispatcher("views/member/memberEnrollForm.jsp").forward(request, response); 위의 코드 한줄 코드 => 한줄 코드는 언제든지 사용가능인가???
 		

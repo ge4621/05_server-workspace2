@@ -26,7 +26,7 @@ public class LogoutController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    //로그아웃
+    //로그아웃 => 세션에 저장된 기록 초기화 (폼 가져오는 것과 똑같이 값을 받을 필요가없다.)
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//session을 사용하기 위해서 request의 도움을 받아야 한다.(상위버전의 값을 가져오기 위해서는 하위 버전의 도움을 받아야 한다.)
@@ -39,7 +39,7 @@ public class LogoutController extends HttpServlet {
 		request.getSession().invalidate();
 		
 		//응답페이지 => index.jsp 페이지 => url재요청(한번이라도 본 화면이여서 가능)
-		response.sendRedirect(request.getContextPath());
+		response.sendRedirect(request.getContextPath());  //request.getContextPath() =>프로젝트 Path만 가져온다.
 		
 		
 	}

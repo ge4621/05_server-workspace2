@@ -27,6 +27,7 @@ public class MyPageController extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 마이페이지 폼 띄우기 => 값을 안받고 그냥 페이지 띄우는 과정
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -34,9 +35,9 @@ public class MyPageController extends HttpServlet {
 		//로그인 전 요청 시 => 메인페이지 응답, alert 띄우기 => url재요청(request x)
 		//로그인 후 요청 시 => 마이페이지 응답 => 포워딩
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(); //셰션 가져오기 => 마이페이지는 로그인 정보 있어야 한다.
 		
-		if(session.getAttribute("loginMember")==null) {//로그인 전
+		if(session.getAttribute("loginMember")==null) {//로그인 전 => url재요청 방법 사용
 			session.setAttribute("alertMsg", "로그인 후 이용가능한 서비스 입니다.");
 			response.sendRedirect(request.getContextPath()); //url재요청
 		}else {//로그인 한 후

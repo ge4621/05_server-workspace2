@@ -12,6 +12,7 @@ import java.util.Properties;
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Category;
+import com.kh.board.model.vo.Reply;
 import com.kh.common.model.vo.PageInfo;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -204,20 +205,20 @@ public class BoardDao {
 		return result;
 	}
 	public Board selectBoard(Connection conn, int boardNo) {
-		//select문 => ResultSet(한행) => Board
-		Board b = null;
+		//select문 => ResultSet(한행) => Board객체에 담기
+		Board b = null; //Board 객체 비어놓기
 	
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("selectBoard");
+		ResultSet rset = null;  //여기 까지 쿼리 돌기기 위해 필요한 것 => select 일 경우
+		 
+		String sql = prop.getProperty("selectBoard");  //쿼리 가져오기
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, boardNo);
 			
-			rset = pstmt.executeQuery();
+			rset = pstmt.executeQuery(); //쿼리 돌릴 준비 끝
 			
 			if(rset.next()) {//한행 =>if 여러행 => while 로 생각하자
 				b = new Board(rset.getInt("board_no"),
@@ -234,14 +235,14 @@ public class BoardDao {
 			close(rset);
 			close(pstmt);
 		}
-		return b;
+		return b; 
 		
 	}
 	
 	public Attachment selectAttachment(Connection conn, int boardNo) {
 		//여러행 조회일 때는 ArrayList 한행 조회 일 때는 객체 명
 		//select문 => ResultSet(한행) => Attachment 객체
-		Attachment at = null;
+		Attachment at = null; 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -255,13 +256,13 @@ public class BoardDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				at = new Attachment();
+				at = new Attachment(); //기본생성자???에 값 넣기
 				
 				at.setFileNo(rset.getInt("file_no"));
 				at.setOriginName(rset.getString("origin_name"));
 				at.setChangeName(rset.getString("change_name"));
 				at.setFilePath(rset.getString("file_path"));
-				
+		
 				
 			}
 		} catch (SQLException e) {
@@ -482,6 +483,67 @@ public class BoardDao {
 		return list;
 	}
 	
+	public ArrayList<Reply> selectReplyList(Connection conn,int boardNo){
+		
+		ArrayList<Reply> list = new ArrayList<Reply>();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectReplyList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Reply(rset.getInt("reply_no"),
+									rset.getString("reply_content"),
+									rset.getString("user_id"),
+									rset.getString("create_date")
+									));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
 	
+	public int insertReply(Connection conn,Reply r) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, r.getReplyContent());
+			pstmt.setInt(2, r.getRefBoardNo());
+			pstmt.setInt(3, Integer.parseInt(r.getReplyWriter()));
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+		
+	}
 	
 }

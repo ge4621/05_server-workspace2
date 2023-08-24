@@ -9,36 +9,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.board.model.service.BoardService;
-import com.kh.board.model.vo.Category;
+import com.kh.board.model.vo.Reply;
 
 /**
- * Servlet implementation class BoardEnrollFormController
+ * Servlet implementation class AjaxReplyListController
  */
-@WebServlet("/enrollForm.bo")
-public class BoardEnrollFormController extends HttpServlet {
+@WebServlet("/rlist.bo")
+public class AjaxReplyListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardEnrollFormController() {
+    public AjaxReplyListController() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 * 게시글등록 화면 띄우기 => 해당 과정은 화면만 띄우면 되는 과정 ,전달받을 값이 없다.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Category> list = new BoardService().selectCategoryList();	
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/board/BoardEnrollForm.jsp").forward(request, response);
-		// 내 용량 잡아먹는 윤지영 이눔시키!!!!
-		// 두고봐라,,,, 
+		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		
+		ArrayList<Reply> list = new BoardService().selectReplyList(boardNo);
+		//[{},{},{},....] => JSON 형태
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		new Gson().toJson(list,response.getWriter());
 		
 	}
 

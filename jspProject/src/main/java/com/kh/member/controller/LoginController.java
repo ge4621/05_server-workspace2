@@ -44,9 +44,9 @@ public class LoginController extends HttpServlet {
 		//3)요청 처리(db에 sql문 실행)
 		//	해당 요청을 처리하는 서비스 클래스의 메소드 호출 및 결과 받기
 		Member loginMember = new MemberService().loginMember(userId, userPwd);  //서비스로 넘겨야 하는 값 => 위에서 객체에 저장한 값
-		//Member 라는 자료형안에 loginMember라는 변수
+		//Member 라는 자료형안에 loginMember라는 변수(본인 마음대로 설정이 가능하나 나중에 보기 쉽게 직관적으로 정하는게 좋다.)
 		
-		System.out.println(loginMember); 
+		System.out.println(loginMember); //확인차원에서 있는거지 controller과정에서 필요없다. 참고로 system.out.print는 확인후 지우는게 좋다.
 		
 		
 		//4)처리된 결과를 가지고 사용자가 보게될 응답 뷰(jsp)지정 후 포워딩 또는 url 재요청

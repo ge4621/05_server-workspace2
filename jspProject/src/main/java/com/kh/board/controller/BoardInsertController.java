@@ -98,7 +98,7 @@ public class BoardInsertController extends HttpServlet {
 			
 			// > Attachment : 넘어온 첨부파일 있으면 원본명, 수정명, 저장폴더경로 ATTACHMENT INSERT
 			
-			String category = multiRequest.getParameter("category");
+			String category = multiRequest.getParameter("category"); //변수명 => db에 저장되어 있는 이름(쓰기 쉽게 똑같이 한건가?) , " "안에 있는 건 name 값???
 			String boardTitle = multiRequest.getParameter("title");
 			String boardContent = multiRequest.getParameter("content");
 			String boardWriter = multiRequest.getParameter("userNo");

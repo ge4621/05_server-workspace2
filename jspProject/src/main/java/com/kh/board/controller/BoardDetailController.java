@@ -30,6 +30,7 @@ public class BoardDetailController extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 일반 게시판 특정 게시물 조회시 필요값 => 글번호 detail.bo?bno=? 여기서 bno에 해당하는 값
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -56,10 +57,7 @@ public class BoardDetailController extends HttpServlet {
 
 		}
 		
-		
-		
-		
-		
+	
 	}
 
 	/**

@@ -268,7 +268,7 @@
 		</thead>
 
 		<tbody>
-
+			
 		</tbody>
 
 	</table>
@@ -277,8 +277,21 @@
 		function test4(){
 			$.ajax({
 				url:"jqAjax4.do",
-				success:function(result){
+				success:function(result){ //[{key:value, key:value},{},{}]
 					console.log(result);
+					
+					let value = "";
+					
+					for(let i=0;i<result.length;i++){
+						value += "<tr>"
+								+"<td>" + result[i].userNo + "</td>"
+								+"<td>" + result[i].userName + "</td>"
+								+"<td>" + result[i].age + "</td>"
+								+"<td>" + result[i].gender + "</td>"
+								+"</tr>";
+					}
+					
+					$("#output4 tbody").html(value);
 					
 				},error:function(){
 					console.log("ajax 통신 실패");

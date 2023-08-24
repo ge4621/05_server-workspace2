@@ -27,7 +27,7 @@ public class MemberDao {
 	}
 	
 	public Member loginMember(Connection conn,String userId, String userPwd) {
-		//select문 => ResultSet 객체(한 행) => Member 객체
+		//select문 => ResultSet 객체(한 행) => Member 객체  => 리턴값 m => m의 자료형은 Member(아래코드확인)
 		Member m = null;
 		
 		PreparedStatement pstmt = null;
@@ -63,7 +63,7 @@ public class MemberDao {
 			e.printStackTrace();
 		}finally {
 			/*JDBCTemplate.*/close(rset);
-			/*JDBCTemplate.*/close(pstmt);
+			/*JDBCTemplate.*/close(pstmt); //반납은 생성된 순서 반대로
 		}
 		return m;
 	}
@@ -104,7 +104,7 @@ public class MemberDao {
 		
 		//update문 => 처리된 행수(오라클에서 "1행"이 업데이트 되었습니다.) => 트랜젝션 처리
 		
-		int result = 0;
+		int result = 0; //처리된 행수 담을 곳
 		
 		PreparedStatement pstmt = null;
 		

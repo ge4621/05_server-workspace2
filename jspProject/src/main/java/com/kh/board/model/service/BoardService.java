@@ -7,6 +7,7 @@ import com.kh.board.model.dao.BoardDao;
 import com.kh.board.model.vo.Attachment;
 import com.kh.board.model.vo.Board;
 import com.kh.board.model.vo.Category;
+import com.kh.board.model.vo.Reply;
 import com.kh.common.model.vo.PageInfo;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -79,7 +80,7 @@ public class BoardService {
 		Board b = new BoardDao().selectBoard(conn, boardNo);
 		
 		close(conn);
-		return b;
+		return b; 
 		
 	}
 	
@@ -151,5 +152,27 @@ public class BoardService {
 		return list;
 	}
 	
+	public ArrayList<Reply> selectReplyList(int boardNo){
+		Connection conn = getConnection();
+		
+		ArrayList<Reply> list = new BoardDao().selectReplyList(conn, boardNo);
+		
+		close(conn);
+		return list;
+	}
+	
+	public int insertReply(Reply r) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().insertReply(conn,r);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 }

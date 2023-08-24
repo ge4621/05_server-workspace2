@@ -48,7 +48,7 @@ public class Board {
 
 	
 	
-	
+	//매개변수 생성자(개수는 위에와 똑같지만 내용값이 다름)
 	public Board(int boardNo, String category, String boardTitle, String boardContent, String boardWriter,
 			String createDate) {
 		super();
