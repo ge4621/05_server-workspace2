@@ -59,7 +59,7 @@ public class BoardUpdateController extends HttpServlet {
 			String boardTitle = multiRequest.getParameter("title");
 			String boardContent = multiRequest.getParameter("content");
 			
-			Board b = new Board(); //초기값을 설정
+			Board b = new Board(); //초기값을 설정 //매개변수로 할경우 vo에서 해당 매개변수만 가지고 있는 생성자를 만들어야 한다.(아마도) 그래서 이방법이 조금더 간단할 듯
 			//아래 단계를 거치면서 값이 설정이 됨
 			b.setBoardNo(boardNo);
 			b.setCategory(category);
