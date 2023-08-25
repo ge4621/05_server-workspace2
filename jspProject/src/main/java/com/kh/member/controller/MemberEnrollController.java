@@ -56,7 +56,7 @@ public class MemberEnrollController extends HttpServlet {
 			interest = String.join(",", interestArr); 
 		}
 		
-		Member m = new Member(userId, userPwd, userName, phone, email, address,interest); //매개변수 7개인거 만들기(한개씩 값을 받는것 보다 양이 많으면 생성자 생성해서 담는게 좋다.)
+		Member m = new Member(userId, userPwd, userName, phone, email, address,interest); //매개변수 7개인거 만들기(한개씩 값을 받는것 보다 양이 많으면 생성자 생성해서 담는게 좋다.) 대신 이렇게 할 경우 vo에 가서 해당 매개변수믄 가지고 있는 생성자 생성해야됨
 		
 		//3) 요청 처리(db에 sql문 실행) => 서비스 메소드 호출 및 결과 받기
 		
