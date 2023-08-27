@@ -61,7 +61,7 @@ public class ThumbnailInsertController extends HttpServlet {
 				b.setBoardContent(multiRequest.getParameter("content"));
 				
 				
-				//Attachment에 여러버 insert할 데이터 뽑기
+				//Attachment에 여러번 insert할 데이터 뽑기
 				ArrayList<Attachment> list = new ArrayList<Attachment>();
 				
 				for(int i=1;i<=4;i++) { //1 2 3 4

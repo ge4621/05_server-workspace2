@@ -38,7 +38,7 @@ public class AjaxReplyInsertController extends HttpServlet {
 		Reply r = new Reply();
 		r.setReplyContent(replyContent);
 		r.setRefBoardNo(boardNo);
-//		r.setReplyWriter(userNo + ""); //아래 또는 해당코드 아무거나 사용 가능 
+//		r.setReplyWriter(userNo + ""); //아래 또는 해당코드 아무거나 사용 가능 "int를 문자열로 바꾸는 과정"
 		r.setReplyWriter(String.valueOf(userNo));
 		
 		int result = new BoardService().insertReply(r);
