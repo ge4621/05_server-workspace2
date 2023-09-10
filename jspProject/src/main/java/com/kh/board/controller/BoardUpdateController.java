@@ -39,7 +39,7 @@ public class BoardUpdateController extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		if(ServletFileUpload.isMultipartContent(request)) {
+		if(ServletFileUpload.isMultipartContent(request)) { //form 태그 안에 있는 enctype=multipart/form-data에 오타가 있는지 확인하는 과정, 저게 제대로 써있지 않으며 실행되지 않는다.
 			
 			//1_1. 전달되는 파일 용량 제한(int maxSize)
 			int maxSize = 10*1024*1024; // 10메가바이트
@@ -49,7 +49,7 @@ public class BoardUpdateController extends HttpServlet {
 			
 			//2.전달된 파일명 수정 작업 후 서버에 업로드
 			//HttpServletRequest => MultipartRequest
-			//아래 한 코드만 있어도 파일 저장이 됨
+			//아래 한 코드만 있어도 파일 저장이 됨 -> 값이 전달되지 않아도 파일에는 저장이 이루어진다.
 			MultipartRequest multiRequest = new MultipartRequest(request,savePath,maxSize,"UTF-8",new MyFileRenamePolicy());
 			
 			//3. 본격적으로 sql문 실행할 때 필요한 값(요청시 전달값)뽑아서 vo에 기록

@@ -36,6 +36,7 @@ public class JqAjaxController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//ArrayList<Member> list = new MemberService().selectMemberList();  => 해당 과정 수행했다고 가정
+		//배열로 넘어온다.
 		ArrayList<Member> list = new ArrayList<Member>(); //[] =>JSONArray
 		
 		list.add(new Member(1,"박철수",30,"남")); //JSONObject{} 
