@@ -89,6 +89,7 @@ public class BoardUpdateController extends HttpServlet {
 				}
 				
 			}
+			
 			//새로 넘어온 첨부 파일 없었다면 at는 여전히 null이다.
 			
 			int result = new BoardService().updateBoard(b,at);
