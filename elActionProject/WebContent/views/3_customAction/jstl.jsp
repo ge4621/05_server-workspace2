@@ -23,7 +23,7 @@
 	<h3>*JSTL 선언 방법</h3>
 	<p>
 		JSTL을 사용하고자 하는 해당 jsp 페이지 상단에 <br>
-		tablib 지시어를 사용해서 선언함 <br><br>
+		taglib 지시어를 사용해서 선언함 <br><br>
 		
 		&lt;%@ taglib prefix="접두어" uri="해당 라이브러리 파일 상의 uri 주소" %&gt;
 	</p>
