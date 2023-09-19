@@ -2,13 +2,9 @@
 <%@page import="com.kh.board.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-   Board b = (Board)request.getAttribute("b");
-   // 글번호, 카테고리명, 제목, 내용, 작성자, 작성일
-   Attachment at = (Attachment)request.getAttribute("at");
-   // 첨부파일이 없다면 null
-   // 첨부파일이 있다면 파일번호, 원본명, 수정명, 저장경로 
-%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +22,8 @@
 </style>
 </head>
 <body>
-<%@ include file="../common/menubar.jsp" %>
+
+<jsp:include page="../common/menubar.jsp"/>
 
 <div class="outer">
     <br>
@@ -37,32 +34,36 @@
 
         <tr>
             <th width="70">카테고리</th>
-            <td width="70"><%= b.getCategory() %></td>
+            <td width="70">${ b.category }</td>
             <th width="70">제목</th>
-            <td width="350"><%= b.getBoardTitle() %></td>
+            <td width="350">${ b.boardTitle }</td>
         </tr>
         <tr>
             <th>작성자</th>
-            <td><%= b.getBoardWriter() %></td>
+            <td>${ b.boardWriter }</td>
             <th>작성일</th>
-            <td><%= b.getCreateDate() %></td>
+            <td>${ b.createDate }</td>
         </tr>
         <tr>
             <th>내용</th>
             <td colspan="3">
-                <p style="height: 200px;"><%= b.getBoardContent() %></p>
+                <p style="height: 200px;">${ b.boardContent }</p>
             </td>
         </tr>
         <tr>
             <th>첨부파일</th>
             <td colspan="3">
-               <% if(at == null) { %>
+            	<c:choose>
+            		<c:when test="${ empty at }">
+               
                    <!-- case1. 첨부파일이 없을 경우 -->
                    첨부파일이 없습니다.
-                <% }else { %>
-                <!-- case2. 첨부파일이 있을 경우 -->
-                <a download="<%= at.getOriginName() %>" href="<%=contextPath%>/<%=at.getFilePath()%>/<%=at.getChangeName()%>"><%=at.getOriginName()%></a>
-                <% } %>
+                   </c:when>
+                   <c:otherwise>
+                <a download="${ at.originName }" href="${ at.filePath }/${at.changeName}">${ at.originName }</a>
+  
+                	</c:otherwise>
+                </c:choose>
             </td>
             
             
@@ -72,13 +73,13 @@
     <br>
 
     <div align="center">
-        <a href="<%=contextPath%>/list.bo?cpage=1" class="btn btn-sm btn-secondary">목록가기</a>
+        <a href="list.bo?cpage=1" class="btn btn-sm btn-secondary">목록가기</a>
 
         <!-- 로그인한 사용자가 게시글 작성자일 경우 -->
-        <% if(loginMember != null && loginMember.getUserId().equals(b.getBoardWriter())) { %>
-        <a href="<%= contextPath %>/updateForm.bo?bno=<%= b.getBoardNo() %>" class="btn btn-sm btn-warning">수정하기</a>
+        <c:if test="${ not empty loginMember and loginMember.userId eq b.boardWriter }">
+        <a href="updateForm.bo?bno=${ b.boardNo }" class="btn btn-sm btn-warning">수정하기</a>
         <a href="#" class="btn btn-sm btn-danger">삭제하기</a>
-        <% } %>
+        </c:if>
     </div>
 
     <br>
@@ -88,21 +89,22 @@
             <thead>
                 <tr>
                 <th>댓글작성</th>
-				<%if(loginMember != null){ %>
+                <c:choose>
+                	<c:when test="${ not empty loginMember }">
+				
                 <!-- 로그인한 사용자만 보이는 화면 -->
                 <td>
                     <textarea id="replyContent" cols="50" rows="3" style="resize: none;"></textarea>
                 </td>
                 <td><button onclick="insertReply();">댓글등록</button></td>
-                
-				<%}else{ %>
-				
-                <!-- 로그인 안한 사용자가 보는 화면 -->
+                </c:when>
+					<c:otherwise>
                 <td>
                     <textarea cols="50" rows="3" style="resize: none;" readonly>로그인 후 이용가능한 서비스입니다.</textarea>
                 </td>
                 <td><button disabled>댓글등록</button></td>
-            	<%} %>
+            		</c:otherwise>
+            	</c:choose>
             </tr>
             </thead>
             <tbody>
@@ -127,7 +129,7 @@
         			url:"rinsert.bo",
         			data:{
         				  content:$("#replyContent").val(), //textarea는 val도 가능(원래 글자 가져오는 건 .html)
-        				  bno:<%=b.getBoardNo()%>
+        				  bno:${b.boardNo}
         				  },
         		    type:"post",
         		    success:function(result){
@@ -148,7 +150,7 @@
         	function selectReplyList(){
         		$.ajax({
         			url:"rlist.bo",
-        			data:{bno:<%=b.getBoardNo()%>},
+        			data:{bno:${b.boardNo}},
         			success:function(list){
 						console.log(list);     
 					

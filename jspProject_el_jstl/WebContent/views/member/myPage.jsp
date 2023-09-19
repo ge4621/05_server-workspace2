@@ -25,54 +25,39 @@
 <body>
 
 <!-- ../ => 현재 폴더에서 하나 뒤로 가기 -> 현재 myPage.jsp 에서 ../하면 views -->
-<%@ include file="../common/menubar.jsp" %> 
 
-        <c:set var="userId" vale="${ userId }"/>
-        <c:set var="userName" value="${ userName }"/>
-        <c:set var="phone" value="${ phone }"/>
-        <c:set var="email" value="${ email }"/>
-        <c:set var="address" value="${ address }"/>
-        <c:set var="interest" value="${ inerest }"/>
-        
-    <%
-        String userName = loginMember.getUserName();
-        String phone = (loginMember.getPhone()==null)?"":loginMember.getPhone(); //삼항연산식 사용 a?b:c => a가 참이면 b, 거짓이면 c
-        String email  = (loginMember.getEmail()==null)?"":loginMember.getEmail();
-        String address = (loginMember.getAddress()==null)?"":loginMember.getAddress();
-        String interest = (loginMember.getInterest()==null)?"":loginMember.getInterest();
-        //"운동,등산,영화" | ""
-    %>
+	<jsp:include page="../common/menubar.jsp"/>
 
     <div class="outer">
         <br>
 
         <h2 align="center">마이페이지</h2>
 
-        <form id="myPage-form" action="<%=contextPath %>/update.me" method="post">
+        <form id="myPage-form" action="update.me" method="post">
             <table>
                 <tr>
                     <td>* 아이디</td>
-                    <td><input type="text" name="userId" maxlength="12" value="${ userId }" required></td>
+                    <td><input type="text" name="userId" maxlength="12" value="${ loginMember.userId }" required></td>
                    
                 </tr>
                 <tr>
                     <td>* 이름</td>
-                    <td><input type="text" name="userName" maxlength="6" value="${ userName }" required></td>
+                    <td><input type="text" name="userName" maxlength="6" value="${ loginMember.userName }" required></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>&nbsp;&nbsp;전화번호</td>
-                    <td><input type="text" name="phone" value="${ phone }" placeholder="- 포함해서 입력"></td>
+                    <td><input type="text" name="phone" value="${ loginMember.phone }" placeholder="- 포함해서 입력"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>&nbsp;&nbsp;이메일</td>
-                    <td><input type="email" name="email" value="${ email }"></td>
+                    <td><input type="email" name="email" value="${ loginMember.email }"></td>
                     <td></td>
                 </tr>
                 <tr>
                     <td>&nbsp;&nbsp;주소</td>
-                    <td><input type="text" name="address" value="${ address }"></td>
+                    <td><input type="text" name="address" value="${ loginMember.address }"></td>
                     <td></td>
                 </tr>
                 <tr>
@@ -101,7 +86,7 @@
             
             <script>
             	$(function(){
-            		const interest = "${ interest }";
+            		const interest = "${ loginMember.interest }";
             		//현재 로그인한 회원의 관심 분야들
             		//"" => 아무것도 선택한한 경우 | "운동, 요리"=> 선택 항목이 있을 경우
             		//console.log(interest);
@@ -143,9 +128,9 @@
 	
 	      <!-- Modal body -->
 	      <div class="modal-body" align="center">
-	        <form action="<%=contextPath %>/updatePwd.me" method="post">
+	        <form action="updatePwd.me" method="post">
 	        	<!-- 해당 form에서 받는 값은 비밀번호 관련된 값들인데 controller로 넘어가면 아이디 값도 필요 => hidden으로 숨겨서 넘겨야 한다. -->
-	        	<input type="hidden" name="userId" value="${ userId }" >
+	        	<input type="hidden" name="userId" value="${ loginMember.userId }" >
 	        	
                 <table>
                     <tr>
@@ -196,8 +181,8 @@
 	
 	      <!-- Modal body -->
 	      <div class="modal-body" align="center">
-            <form action="<%=contextPath %>/delete.me" method="post">
-	      		<input type="hidden" name="userId" value="${ userId }" >
+            <form action="delete.me" method="post">
+	      		<input type="hidden" name="userId" value="${ loginMember.userId }" >
                 <b>탈퇴 후 복구가 불가능 합니다. <br> 정말로 탈퇴하시겠습니까?</b> <br><br>
 
                 비밀번호 : <input type="password" name="userPwd" required> <br><br>

@@ -26,7 +26,7 @@
 
 </head>
 <body>
-	<%@include file="../common/menubar.jsp" %>
+	<jsp:include page="../common/menubar.jsp"/>
 
 
     <div class="outer">
@@ -34,8 +34,8 @@
         <h2 align="center">사진게시판 작성하기</h2>
         <br>
 
-        <form action="<%=contextPath %>/insert.th" id="enroll-form" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="userNo" value="<%= loginMember.getUserNo()%>"/>
+        <form action="insert.th" id="enroll-form" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="userNo" value="${ loginMember.useId }"/>
             <table align="center">
                 <tr>
                     <th width="100">제목</th>

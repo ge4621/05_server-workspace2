@@ -4,17 +4,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%
-	ArrayList<Category> list =(ArrayList<Category>)request.getAttribute("list");
-	Board b = (Board)request.getAttribute("b");
-	//글번호, 카테고리명, 제목, 내용, 작성자아이디, 작성일,
-	Attachment at = (Attachment)request.getAttribute("at");
-	//첨부파일 없을 경우 null
-	//첨부파일 있을 경우 파일 번호, 원본명, 수정명, 저장경로
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
-%>    
-    
+
     
 <!DOCTYPE html>
 <html>
@@ -44,8 +36,7 @@
 
 </head>
 <body>
-
-	<%@ include file="../common/menubar.jsp" %>
+	<jsp:include page="../common/menubar.jsp"/>
 	
 	<div class="outer">
 
@@ -54,8 +45,8 @@
         <br>
 
 
-        <form id="update-form" action="<%=contextPath %>/update.bo" method="post" enctype="multipart/form-data">
-        	<input type="hidden" name="bno" value="<%=b.getBoardNo() %>" />
+        <form id="update-form" action="update.bo" method="post" enctype="multipart/form-data">
+        	<input type="hidden" name="bno" value="${b.boardNo }" />
         <!-- 카테고리번호, 제목, 내용, 점부파일 한개, 게시글 번호 -->
 
             <table align="center">
@@ -63,18 +54,16 @@
                     <th width="70">카테고리</th>
                     <td width="500">
                         <select name="category" id="">
-                            <!--category 테이블로부터 조회해오기-->
-                            <% for(Category c:list){ %>
-                                <option value="<%=c.getCategoryNo()%>"><%=c.getCategoryName() %></option>
-                                
-                            <%} %>
+                            <c:forEach var="c" items="${ list }">
+                            	<option value="${ c.categoryNo }">${ c.categoryName }</option>
+                            </c:forEach>
                         </select>
                         
                         <script>
 			            	$(function(){
 			            		
 			            		$("#update-form option").each(function(){
-			            			if($(this).text() == "<%=b.getCategory()%>"){
+			            			if($(this).text() == "${ c.category}"){
 			            			$(this).attr("selected",true);
 			            		}
 			            	})
@@ -86,20 +75,19 @@
                 </tr>
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" name="title" id="" required value="<%=b.getBoardTitle()%>"></td>
+                    <td><input type="text" name="title" id="" required value="${ b.boardTitle }"></td>
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td><textarea name="content" rows="10" style="resize: none;" required><%=b.getBoardContent() %></textarea></td>
+                    <td><textarea name="content" rows="10" style="resize: none;" required>${ b.boardContent }</textarea></td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
                     <td>
-                    	<%if(at != null){ %>
-                        <!--현재 이 게시글에 딸린 첨부파일이 있을 경우-->
-                        <%=at.getOriginName() %>
-                        <input type="hidden" name="originFileNo" value="<%=at.getFileNo()%>">
-                        <%} %>
+                    	<c:if test=" ${ not empty at }">
+                        ${ at.originName }
+                        <input type="hidden" name="originFileNo" value="${ at.fileNo }">
+                        </c:if>
                         <input type="file" name="upfile" id=""></td>
                 </tr>
             </table>

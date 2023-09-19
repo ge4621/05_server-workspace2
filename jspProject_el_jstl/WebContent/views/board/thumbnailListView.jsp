@@ -46,7 +46,7 @@
 </head>
 <body>
 
-	<%@ include file="../common/menubar.jsp" %>
+	<jsp:include page="../common/menubar.jsp"/>
 
     <div class="outer">
         <br>
@@ -56,7 +56,7 @@
         <!--로그인한 회원만 보여짐-->
         <%if(loginMember != null){ %>
         <div style="width: 850px;" align="right">
-            <a href="<%=contextPath %>/enrollForm.th" class="btn btn-sm btn-secondary">글작성</a>
+            <a href="enrollForm.th" class="btn btn-sm btn-secondary">글작성</a>
         </div>
 		<%} %>
 		
@@ -66,7 +66,7 @@
 	            <!--썸네일 한개-->
 	            <div class="thumbnail" align="center">
 	            	<input type="hidden" value="<%=b.getBoardNo() %>">
-	                <img src="<%= contextPath %>/<%=b.getTitleImg() %>" width="200" height="150">
+	                <img src="<%=b.getTitleImg() %>" width="200" height="150">
 	                <p>
 	                    No.<%=b.getBoardNo()  %> <%=b.getBoardTitle() %> <br>
 	                    조회수 : <%=b.getCount() %>
@@ -79,7 +79,7 @@
 		<script>
 			$(function(){
 				$(".thumbnail").click(function(){
-					location.href="<%=contextPath%>/detail.th?bno=" + $(this).children("input").val();
+					location.href="detail.th?bno=" + $(this).children("input").val();
 				})
 			})
 		

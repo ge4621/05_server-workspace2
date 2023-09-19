@@ -3,11 +3,11 @@
 <%@page import="com.kh.common.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
     
  <%
  	PageInfo pi = (PageInfo)request.getAttribute("pi");
- 	ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
  	
  	int currentPage = pi.getCurrentPage();
  	int startPage = pi.getStartPage();
@@ -44,7 +44,7 @@
 </head>
 <body>
 	
-	<%@include file = "../common/menubar.jsp" %>
+	<jsp:include page="../common/menubar.jsp"/>
     
     <div class="outer">
         <br>
@@ -52,13 +52,13 @@
         <br>
 
         <!--로그인한 회원 만 보여지는 div-->
-        <% if(loginMember != null){ %>
+        <c:if test="${ not empty loginMember }">
 	        <div align="right" style="width: 860px;">
-	           <a href="<%=contextPath %>/enrollForm.bo" class="btn btn-sm btn-secondary">글작성</a>
+	           <a href="enrollForm.bo" class="btn btn-sm btn-secondary">글작성</a>
 	            <br>
 	            <br>
 	        </div>
-	      <%} %>
+	      </c:if>
 
         <table align="center" class="list-area">
             <thead>
@@ -73,26 +73,28 @@
             </thead>
 
             <tbody>
-            	
-            <%if(list.isEmpty()){ %>
-                <!--case1. 게시글이 없을 경우-->
+            <c:choose>
+            	<c:when test="${ empty list }">
+   
                 <tr>
                     <td colspan="6">조회된 게시글이 없습니다.</td>
                 </tr>
-			<%}else{ %>
-				<%for(Board b:list){ %>
+                </c:when>
+					<c:otherwise>
+					<c:forEach var="b" items="${ list }">
+	
                 <!--case2. 게시글이 있을 경우-->
                 <tr>
-                    <td><%=b.getBoardNo() %></td>
-                    <td><%=b.getCategory() %></td>
-                    <td><%=b.getBoardTitle() %></td>
-                    <td><%=b.getBoardWriter() %></td>
-                    <td><%=b.getCount() %></td>
-                    <td><%=b.getCreateDate() %></td>
+                    <td>${ b.boardNo }</td>
+                    <td>${ b.category }</td>
+                    <td>${ b.boardTitle }</td>
+                    <td>${ b.boardWriter }</td>
+                    <td>${ b.count }</td>
+                    <td>${ b.createDate }</td>
                 </tr>
-				<%} %>
-			<%} %>
-			
+			</c:forEach>
+			</c:otherwise>
+			</c:choose>
             </tbody>
         </table>
         
@@ -101,7 +103,7 @@
         		$(".list-area>tbody>tr").click(function(){
         			//const num = $(this).children().eq(0).text()
         			
-        			location.href='<%=contextPath%>/detail.bo?bno='+ $(this).children().eq(0).text()
+        			location.href='detail.bo?bno='+ $(this).children().eq(0).text()
         			
         			
         		})
@@ -115,7 +117,7 @@
         <div class="paging-area" align="center">
         
         	<% if(currentPage != 1){ %>
-            <button onclick="location.href='<%=contextPath%>/list.bo?cpage=<%=currentPage -1%>'"> &lt; </button>
+            <button onclick="location.href='list.bo?cpage=<%=currentPage -1%>'"> &lt; </button>
             <%} %>
             
             <% for(int p = startPage; p<=endPage;p++){%>
@@ -125,13 +127,13 @@
             
             <%}else{ %>
             
-            <button onclick="location.href='<%=contextPath%>/list.bo?cpage=<%=p %>'"><%=p %></button>
+            <button onclick="location.href='list.bo?cpage=<%=p %>'"><%=p %></button>
             <%} %>
             
             <% } %>
             
             <%if(currentPage != maxPage){ %>
-            <button onclick="location.href='<%=contextPath%>/list.bo?cpage=<%=currentPage +1%>'"> &gt; </button>
+            <button onclick="location.href='list.bo?cpage=<%=currentPage +1%>'"> &gt; </button>
 			<%} %>        
         </div>
 

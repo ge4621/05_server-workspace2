@@ -26,13 +26,14 @@
 </head>
 <body>
 
-	<%@include file="../common/menubar.jsp" %>
+	
+	<jsp:include page="../common/menubar.jsp"/>
 	<div class="outer" align="center">
         <br>
         <h2>공지사항 작성하기</h2>
         <br>
 
-        <form action="<%=contextPath %>/insert.no" id="enroll-Form" method="post">
+        <form action="insert.no" id="enroll-Form" method="post">
             <table>
                 <tr>
                     <th width="50">제목</th>
