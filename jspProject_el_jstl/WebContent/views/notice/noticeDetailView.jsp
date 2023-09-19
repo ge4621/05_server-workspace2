@@ -59,7 +59,7 @@
             <a href="list.no" class="btn btn-sm btn-secondary">목록가기</a>
             
             <!--현재 로그인한 사용자가 해당 글을 쓴 본인일 경우 수정및 삭제 할 수 있다. 그외 사람은 수정 및 삭제 불가-->
-            <c:if test="${ not empty loginMember and n.noticeWriter eq 'loginMember.userId' }">
+            <c:if test="${ not empty loginMember and n.noticeWriter eq loginMember.userId }">
          	
 	            <a href="updateForm.no?num=${n.noticeNo }" class="btn btn-sm btn-warning">수정하기</a>
 	            <a href="delete.no?num=${n.noticeNo }" class="btn btn-sm btn-danger">삭제하기</a>
