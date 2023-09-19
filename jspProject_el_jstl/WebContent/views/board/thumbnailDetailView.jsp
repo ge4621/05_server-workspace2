@@ -51,7 +51,7 @@
                 <td>작성자</td>
                 <td>${ b.boardWriter }</td>
                 <td>작성일</td>
-                <td>${ b.CreateDate }</td>
+                <td>${ b.createDate }</td>
             </tr>
             <tr>
                 <td>내용</td>
@@ -65,7 +65,7 @@
             <tr>
                 <td>대표사진</td>
                 <td colspan="3">
-                    <img src="${ list.filePath(0) }/${list.changeName(0)}" width="500" height="300">
+                    <img src="${ list.get(0).filePath }/${list.get(0).changeName}" width="500" height="300">
                 </td>
                 
             </tr>
@@ -73,8 +73,8 @@
                 <td>상세사진</td>
                 <td colspan="3">
                     <div>
-                    	<c:forEach var="i" begin="1" end="${ list.size }">
-                        <img src="${ list.filePath(i) }/${list.changeName(i)}" alt="" width="200" height="150">
+                    	<c:forEach var="i" begin="1" end="${ list.size() -1 }">
+                        <img src="${ list.get(i).filePath }/${list.get(i).changeName}" alt="" width="200" height="150">
                     	</c:forEach>
                     </div>
                 </td>

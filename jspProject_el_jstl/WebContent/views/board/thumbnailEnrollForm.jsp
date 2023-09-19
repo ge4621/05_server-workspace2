@@ -35,7 +35,7 @@
         <br>
 
         <form action="insert.th" id="enroll-form" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="userNo" value="${ loginMember.useId }"/>
+            <input type="hidden" name="userNo" value="${ loginMember.userNo }"/>
             <table align="center">
                 <tr>
                     <th width="100">제목</th>

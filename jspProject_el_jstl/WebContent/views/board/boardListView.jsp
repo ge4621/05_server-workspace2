@@ -115,26 +115,26 @@
         <br><br>
 
         <div class="paging-area" align="center">
-        
-        	<% if(currentPage != 1){ %>
-            <button onclick="location.href='list.bo?cpage=<%=currentPage -1%>'"> &lt; </button>
-            <%} %>
+        	<c:if test="${ pi.currentPage ne 1 }">
+            <button onclick="location.href='list.bo?cpage=${ pi.currentPage - 1 }'"> &lt; </button>
+            </c:if>
             
-            <% for(int p = startPage; p<=endPage;p++){%>
+            <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+            <c:choose>
+            	<c:when test="${ pi.currentPage eq p }">
+           			<button disabled>${ p }</button>
+            	</c:when>
+            		<c:otherwise> 
+            			<button onclick="location.href='list.bo?cpage=${ p }'">${ p }</button>
+            		</c:otherwise>
+            	</c:choose>
+            </c:forEach>
             
-            <%if(p == currentPage){ %>
-            <button disabled><%=p %></button>
+            <c:if test="${ pi.currentPage ne pi.maxPage }">
             
-            <%}else{ %>
-            
-            <button onclick="location.href='list.bo?cpage=<%=p %>'"><%=p %></button>
-            <%} %>
-            
-            <% } %>
-            
-            <%if(currentPage != maxPage){ %>
-            <button onclick="location.href='list.bo?cpage=<%=currentPage +1%>'"> &gt; </button>
-			<%} %>        
+            <button onclick="location.href='list.bo?cpage=${ pi.currentPage + 1 }'"> &gt; </button>
+			
+			</c:if>    
         </div>
 
 
